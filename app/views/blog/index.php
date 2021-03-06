@@ -1,0 +1,1 @@
+Hello there <?php var_dump($data) ?>

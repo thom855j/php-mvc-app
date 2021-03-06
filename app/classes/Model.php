@@ -1,20 +1,30 @@
 <?php
 
-abstract class Model
-{
-    protected $table = '';
+namespace MVC\Classes;
 
-    public function create($user = [])
+use MVC\Classes\Database;
+use MVC\Interfaces\ModelInterface;
+
+abstract class Model implements ModelInterface
+{
+    protected $db;
+
+    public function __construct(Database $db) 
+    {
+        $this->db = $db;
+    }
+
+    public function create($table = [])
     {
  
     }
 
-    public function read()
+    public function read($where = [])
     {
 
     }
 
-    public function update($user = [], $where = [])
+    public function update($table = [], $where = [])
     {
 
     }

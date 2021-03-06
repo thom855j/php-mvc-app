@@ -1,16 +1,20 @@
 <?php
 
+namespace MVC\Classes;
+
 class App
 {
     public $path = '';
     public $route = 'route';
+    
+    protected $container;
     protected $controller = 'Error';
     protected $method = 'index';
     protected $params = array();
 
-    public function __construct($db) 
+    public function __construct(Container $container) 
     {
-        $this->db = $db;
+        $this->container = $container;
     }
 
     public function router() 
@@ -34,9 +38,8 @@ class App
             $this->controller = $this->controller . 'Controller';
         }
 
-        
         require_once $this->path . $this->controller . '.php';
-        $this->controller = new $this->controller;
+        $this->controller = new $this->controller($this->container);
 
         if (isset($request[1])) {
             if (method_exists($this->controller, $request [1])) {

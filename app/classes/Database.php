@@ -1,5 +1,9 @@
 <?php
 
+namespace MVC\Classes;
+
+use PDO;
+
 class Database
 {
     protected $connection = [
@@ -191,7 +195,7 @@ class Database
         return false;
     }
 
-    public function update($fields = array(), $where = array())
+    public function update($attribute, $ID, $fields = array())
     {
         $set = '';
         $x   = 1;
@@ -206,7 +210,7 @@ class Database
             $x++;
         }
 
-        $sql = "UPDATE {$this->table} SET {$set} WHERE {$where[0]} {$where[1]} {$where[2]}";
+        $sql = "UPDATE {$this->table} SET {$set} WHERE {$attribute} = {$ID}";
 
         if (!$this->query($sql, $fields)->error())
         {
@@ -215,7 +219,7 @@ class Database
         return false;
     }
 
-    public function get($select = array(), $where = array(), $options = null)
+    public function select($select = array(), $where = array(), $options = null)
     {
         return $this->action('SELECT ' . implode($select, ', '), $where, $options);
     }
